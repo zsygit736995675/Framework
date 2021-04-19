@@ -12,7 +12,7 @@ using UnityEditor;
 /// </summary>
 public class ExcelEditor : EditorWindow
 {
-    static string basePath = "/Framework/Config/";
+    static string basePath = "/Framework/Modules/Config/";
 
     /// <summary>
     /// 模板存放位置
@@ -98,10 +98,9 @@ public class ExcelEditor : EditorWindow
             for (int i = 0; i < files.Length; i++)
             {
                 if (files[i].Name.EndsWith(".meta") || !files[i].Name.EndsWith(".xlsx"))
-                {
                     continue;
-                }
-                Debug.Log("FullName:" + files[i].FullName);
+
+                Debug.Log("FullName==>>" + files[i].FullName);
                 LoadData(files[i].FullName, files[i].Name);
             }
         }
@@ -185,16 +184,16 @@ public class ExcelEditor : EditorWindow
                             tempo[item.fieldName] = GetValue<bool>(item.value);
                             break;
                         case "string[]":
-                            tempo[item.fieldName] = new JArray(GetList<string>(item.value, ','));
+                            tempo[item.fieldName] = new JArray(GetList<string>(item.value));
                             break;
                         case "int[]":
-                            tempo[item.fieldName] = new JArray(GetList<int>(item.value, ','));
+                            tempo[item.fieldName] = new JArray(GetList<int>(item.value));
                             break;
                         case "float[]":
-                            tempo[item.fieldName] = new JArray(GetList<float>(item.value, ','));
+                            tempo[item.fieldName] = new JArray(GetList<float>(item.value));
                             break;
                         case "bool[]":
-                            tempo[item.fieldName] = new JArray(GetList<bool>(item.value, ','));
+                            tempo[item.fieldName] = new JArray(GetList<bool>(item.value));
                             break;
                     }
                 }
@@ -219,9 +218,9 @@ public class ExcelEditor : EditorWindow
     /// <summary>
     /// 字符串拆分列表
     /// </summary>
-    static List<T> GetList<T>(string str, char spliteChar)
+    static List<T> GetList<T>(string str)
     {
-        string[] ss = str.Split(spliteChar);
+        string[] ss = str.Split(',');
         int length = ss.Length;
         List<T> arry = new List<T>(ss.Length);
         for (int i = 0; i < length; i++)
@@ -242,7 +241,6 @@ public class ExcelEditor : EditorWindow
         {
             Debug.LogError("GetValue  value:" + value.ToString() + " error:" + e.ToString());
         }
-
         return t;
     }
 
