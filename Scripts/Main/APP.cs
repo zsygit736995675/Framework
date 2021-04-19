@@ -11,11 +11,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class APP : SingletonObject<APP>
 {
+
+
     /// <summary>
     /// 游戏入口
     /// </summary>
-    private Main main;
-    public Main Main { get { return main; } }
+    private TestMain main;
+    public TestMain Main { get { return main; } }
 
     /// <summary>
     /// 加载
@@ -31,7 +33,7 @@ public class APP : SingletonObject<APP>
 
     }
 
-    public void Init(Main main) 
+    public void Init(TestMain main) 
     {
         this.main = main;
         ViewMng.Ins.Init();

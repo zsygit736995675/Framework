@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Main : MonoBehaviour
+public class TestMain : MonoBehaviour
 {
     [SerializeField]
     [Header("服务器")]
