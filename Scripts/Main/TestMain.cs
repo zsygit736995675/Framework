@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UniRx;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TestMain : MonoBehaviour
@@ -46,6 +47,7 @@ public class TestMain : MonoBehaviour
 
             Debug.Log("HttpAsyncGet:" + str);
         });
+
     }
 
     void Init()
