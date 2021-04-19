@@ -293,7 +293,7 @@ public class ExcelEditor : EditorWindow
         "private static @Name config;\r\t\t" +
         "public string version { get; set; }\r\t\t" +
         "public @Name [] datas { get; set; }\r\r\t\t" +
-        "private static void Init()\r\t\t{\r\t\t\tTextAsset jsonStr = Resources.Load(\"Config/\"+configName) as TextAsset;\r\t\t\t" +
+        "private static void Init()\r\t\t{\r\t\t\tTextAsset jsonStr = Resources.Load(configName) as TextAsset;\r\t\t\t" +
         "config = JsonConvert.DeserializeObject<@Name>(jsonStr.text);\r\t\t}\r\r\t\t" +
         "public static @Name Get(int id)\r\t\t{\r\t\t\tforeach (var item in Config.datas)\r\t\t\t{\r\t\t\t\tif (item.id == id)\r\t\t\t\t{ \r\t\t\t\t\treturn item;\r\t\t\t\t}\r\t\t\t}\r\t\t\treturn null;\r\t\t}\r\r\t\t" +
         "\r}";
