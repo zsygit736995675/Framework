@@ -5,6 +5,7 @@ using System.Collections.Generic;
 /// </summary>
 public class MemoryPool<T> where T : class
 {
+
     /**
     * @description 切勿单独操作此集合，如需增删请引用封装的函数
     * @description 此数组在此用作模拟队列来处理数据，遵循先进先出，所以请勿单独操作此数组
