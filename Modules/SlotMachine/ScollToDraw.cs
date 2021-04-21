@@ -24,12 +24,12 @@ public class ScollToDraw : MonoBehaviour
     /// <summary>
     /// 进度
     /// </summary>
-    private float[] progress ;
+    private float[] progress;
 
     /// <summary>
     /// 位置
     /// </summary>
-    private Vector3[] AniPosV3 ;
+    private Vector3[] AniPosV3;
 
     /// <summary>
     /// 中间位置
@@ -37,17 +37,21 @@ public class ScollToDraw : MonoBehaviour
     private int mid;
 
 
-    // 自动暂停标识
-    private bool isAutoStop;
+    /// <summary>
+    /// 停止标识,等待摇奖结束
+    /// </summary>
+    private bool isAutoStop = true;
 
-    // 抽奖结束 停止刷新界面UI
-    private bool isStopUpdatePos;
+    /// <summary>
+    /// 摇奖结束
+    /// </summary>
+    private bool isStopUpdatePos = true;
+
 
     void Start()
     {
         DrowBtn.onClick.AddListener(DrawFun);
-        isAutoStop = false;
-        isStopUpdatePos = true;
+
     }
 
     /// <summary>
@@ -59,7 +63,7 @@ public class ScollToDraw : MonoBehaviour
 
         mid = ArardImgArr.Length / 2;
 
-        progress = new float[ArardImgArr.Length+1];
+        progress = new float[ArardImgArr.Length + 1];
         AniPosV3 = new Vector3[ArardImgArr.Length + 1];
 
         for (int i = 0; i < ArardImgArr.Length; i++)
@@ -68,9 +72,9 @@ public class ScollToDraw : MonoBehaviour
             float y = index * intervalDis;
             ArardImgArr[i].transform.localPosition = new Vector3(0, index * intervalDis, 0);
             progress[i] = i;
-            AniPosV3[i] = new Vector3(0,y);
+            AniPosV3[i] = new Vector3(0, y);
         }
-        progress[progress.Length-1] = progress.Length;
+        progress[progress.Length - 1] = progress.Length;
         AniPosV3[AniPosV3.Length - 1] = new Vector3(0, (mid - ArardImgArr.Length) * intervalDis);
     }
 
@@ -90,28 +94,31 @@ public class ScollToDraw : MonoBehaviour
     Vector3 MovePosition(int i)
     {
         int index = Mathf.FloorToInt(progress[i]);
+
+        //置底
         if (index > progress.Length - 2)
         {
-            //保留其小数部分，不能直接赋值为0
+            //保留其小数部分,该位置进度归零
             progress[i] -= index;
 
-            //索引为0的为我们最后想要的
+            //中间的格子置底，说明第一个格子在中间
             bool isFirst = ArardImgArr.Length % 2 == 0 ? i == mid : i == mid + 1;
             if (isFirst && isAutoStop)
             {
                 isStopUpdatePos = true;
-               
+
 
 
             }
-            return   new Vector3(0, mid * intervalDis);
+            //该格子置顶
+            return new Vector3(0, mid * intervalDis);
         }
         else
         {
+            //移动向下一个
             return Vector3.Lerp(AniPosV3[index], AniPosV3[index + 1], progress[i] - index);
         }
     }
-
 
     /// <summary>
     /// 点击抽奖
@@ -127,10 +134,10 @@ public class ScollToDraw : MonoBehaviour
     // 抽奖动画速度控制
     IEnumerator SetMoveSpeed()
     {
-        AniMoveSpeed =12;
+        AniMoveSpeed = 12;
         yield return new WaitForSeconds(2);
 
-        AniMoveSpeed =7;
+        AniMoveSpeed = 7;
         yield return new WaitForSeconds(1);
         isAutoStop = true;
     }
