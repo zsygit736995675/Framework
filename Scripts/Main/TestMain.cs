@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,6 +48,28 @@ public class TestMain : MonoBehaviour
 
             Debug.Log("HttpAsyncGet:" + str);
         });
+
+
+        LogicTimer timer = TimerManager.Ins.SetRepeatTimer(TimerDef.TIMER_NONE,1000, 10, () => {
+
+                Debug.Log("wanle ");
+        },(aa)=> {
+
+             Debug.Log(aa);
+         
+        });
+
+
+   
+        
+
+    }
+
+
+    private void Update()
+    {
+
+
 
     }
 
