@@ -30,7 +30,7 @@ public class TimerManager : SingletonObject<TimerManager>
     /// <summary>
     /// 对象池
     /// </summary>
-    MemoryPool<LogicTimer> memoryPool = new MemoryPool<LogicTimer>();
+    private MemoryPool<LogicTimer> memoryPool = new MemoryPool<LogicTimer>();
 
     /// <summary>
     /// 初始化
