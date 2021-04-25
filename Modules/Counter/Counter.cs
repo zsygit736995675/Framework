@@ -9,9 +9,9 @@ public delegate void ReleaseCallback(int totalCount, int overCount);
 /// <summary>
 /// 计数器
 /// </summary>
-public class Counter 
+public class Counter
 {
- 
+
     /// <summary>
     /// 标识
     /// </summary>
@@ -40,10 +40,19 @@ public class Counter
     /// <summary>
     /// 重置
     /// </summary>
-    public void ReSet() 
+    public void ReSet()
     {
         RefCount = 0;
         RefCountTotal = 0;
+    }
+
+    /// <summary>
+    /// 设置数量
+    /// </summary>
+    public void SetCount(int count)
+    {
+        RefCount = count;
+        RefCountTotal = count;
     }
 
     /// <summary>
@@ -61,7 +70,7 @@ public class Counter
     public void Release(object refOwner = null)
     {
         RefCount--;
-        releaseCallback?.Invoke(RefCountTotal,RefCount);
+        releaseCallback?.Invoke(RefCountTotal, RefCount);
         OnZeroRef();
     }
 

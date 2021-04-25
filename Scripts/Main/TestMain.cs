@@ -64,25 +64,18 @@ public class TestMain : MonoBehaviour
             Debug.Log("HttpAsyncGet:" + str);
         });
 
-        counter.Retain();
-        counter.Retain();
-        counter.Retain();
+        counter.SetCount(3);
+
         LogicTimer timer = TimerManager.Ins.SetRepeatTimer(TimerDef.TIMER_NONE,2000, 4, () => {
 
-                Debug.Log("wanle ");
+            Debug.Log("wanle ");
 
         },(aa)=> {
 
             counter.Release();
-
             Debug.Log(aa);
          
         });
-
-
-   
-        
-
     }
 
 

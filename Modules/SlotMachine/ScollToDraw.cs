@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,22 +8,14 @@ using UnityEngine.UI;
 /// </summary>
 public class ScollToDraw : MonoBehaviour
 {
-    // 抽奖按钮
-    public Button DrowBtn;
-
-    // 奖励图片
+    
+    /// <summary>
+    /// 图片集合
+    /// </summary>
     private Image[] ArardImgArr;
 
-    // 转盘速度
-    private float AniMoveSpeed = 8f;
-
     /// <summary>
-    /// 图片间隔
-    /// </summary>
-    public int intervalDis = 120;
-
-    /// <summary>
-    /// 进度
+    /// 抽奖进度
     /// </summary>
     private float[] progress;
 
@@ -32,10 +25,19 @@ public class ScollToDraw : MonoBehaviour
     private Vector3[] AniPosV3;
 
     /// <summary>
+    /// 转盘速度
+    /// </summary>
+    private float AniMoveSpeed = 8f;
+
+    /// <summary>
+    /// 图片间隔
+    /// </summary>
+    private int intervalDis = 120;
+
+    /// <summary>
     /// 中间位置
     /// </summary>
     private int mid;
-
 
     /// <summary>
     /// 停止标识,等待摇奖结束
@@ -47,12 +49,6 @@ public class ScollToDraw : MonoBehaviour
     /// </summary>
     private bool isStopUpdatePos = true;
 
-
-    void Start()
-    {
-        DrowBtn.onClick.AddListener(DrawFun);
-
-    }
 
     /// <summary>
     /// 初始化位置
@@ -70,16 +66,51 @@ public class ScollToDraw : MonoBehaviour
         {
             int index = mid - i;
             float y = index * intervalDis;
+            //初始化图片位置
             ArardImgArr[i].transform.localPosition = new Vector3(0, index * intervalDis, 0);
             progress[i] = i;
             AniPosV3[i] = new Vector3(0, y);
         }
+        //图片向下移动，需要多出来一个缓冲位置
         progress[progress.Length - 1] = progress.Length;
         AniPosV3[AniPosV3.Length - 1] = new Vector3(0, (mid - ArardImgArr.Length) * intervalDis);
+
+        //ResetImage();
+    }
+
+    /// <summary>
+    /// 想要中奖的位置
+    /// </summary>
+    int redIndex;
+    /// <summary>
+    /// 排除的位置
+    /// </summary>
+    int bigIndex;
+    void ResetImage()
+    {
+        List<Sprite> sprites = new List<Sprite>(Resources.LoadAll<Sprite>("Texture/Ui/Lottery"));
+        for (int i = 0; i < ArardImgArr.Length; i++)
+        {
+            int index = UnityEngine.Random.Range(0, sprites.Count);
+            
+            if (sprites[index].name == "6")
+                redIndex = i;
+            if (sprites[index].name == "5")
+                bigIndex = i;
+
+            ArardImgArr[i].sprite = sprites[index];
+            ArardImgArr[i].SetNativeSize();
+            sprites.RemoveAt(index);
+        }
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            DrawFun();
+        }
+
         if (isStopUpdatePos) return;
 
         float t = Time.deltaTime * AniMoveSpeed;
@@ -98,18 +129,8 @@ public class ScollToDraw : MonoBehaviour
         //置底
         if (index > progress.Length - 2)
         {
-            //保留其小数部分,该位置进度归零
-            progress[i] -= index;
+            CheckEnd2(i, index);
 
-            //中间的格子置底，说明第一个格子在中间
-            bool isFirst = ArardImgArr.Length % 2 == 0 ? i == mid : i == mid + 1;
-            if (isFirst && isAutoStop)
-            {
-                isStopUpdatePos = true;
-
-
-
-            }
             //该格子置顶
             return new Vector3(0, mid * intervalDis);
         }
@@ -117,6 +138,39 @@ public class ScollToDraw : MonoBehaviour
         {
             //移动向下一个
             return Vector3.Lerp(AniPosV3[index], AniPosV3[index + 1], progress[i] - index);
+        }
+    }
+
+    void CheckEnd2(int i, int index) 
+    {
+        //保留其小数部分,该位置进度归零
+        progress[i] -= index;
+
+        //中间的格子置底，说明第一个格子在中间
+        bool isFirst = ArardImgArr.Length % 2 == 0 ? i == mid : i == mid + 1;
+        if (isFirst && isAutoStop)
+        {
+            isStopUpdatePos = true;
+
+
+
+        }
+    }
+
+    void CheckEnd1(int i,int index) 
+    {
+        int target = ArardImgArr.Length % 2 == 0 ? redIndex + mid : redIndex + mid + 1;
+        target = target > ArardImgArr.Length - 1 ? target - ArardImgArr.Length : target;
+        bool isFirst = target == i;
+       
+
+        //保留其小数部分,该位置进度归零
+        progress[i] -= index;
+
+        if (isFirst && isAutoStop)
+        {
+            isStopUpdatePos = true;
+
         }
     }
 

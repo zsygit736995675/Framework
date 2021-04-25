@@ -65,6 +65,7 @@ public class TimerManager : SingletonObject<TimerManager>
                     }
                     else
                     {
+                        timer.OnceHander?.Invoke(timer.bouts);
                         timer.EndHandler?.Invoke();
                         KillTimer(timer.EventID);
                     }
