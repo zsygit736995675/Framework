@@ -6,24 +6,6 @@ using System.Text;
 using System.IO;
 using System.Security.Cryptography;
 
-/// <summary>
-/// http服务器
-/// </summary>
-public enum HttpServerAddress
-{
-    /// <summary>
-    /// 正式
-    /// </summary>
-    Formal,
-    /// <summary>
-    /// 内网
-    /// </summary>
-    Intranet,
-    /// <summary>
-    /// 测试
-    /// </summary>
-    Test,
-}
 
 public class HTTP : BaseClass<HTTP>
 {
@@ -145,7 +127,7 @@ public class HTTP : BaseClass<HTTP>
     {
         StringBuilder sb = new StringBuilder();
 
-        if (httpAddress == HttpServerAddress.Formal)
+        if (httpAddress == HttpServerAddress.Release)
         {
             sb.Append("http://brother_cn.munimob.com/api");
         }
@@ -155,7 +137,7 @@ public class HTTP : BaseClass<HTTP>
             sb.Append("http://brothers.gogameclub.com/api");
         }
 
-        if (httpAddress == HttpServerAddress.Test)
+        if (httpAddress == HttpServerAddress.Debug)
         {
             sb.Append("http://127.0.0.1:2341");
         }
