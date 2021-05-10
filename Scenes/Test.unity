@@ -326,7 +326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8be09ee42dfe74899c0fda3b84081d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  httpAddress: 0
 --- !u!4 &1486418626
 Transform:
   m_ObjectHideFlags: 0
@@ -354,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverType: 0
-  sysType: 0
+  sysType: 1
 --- !u!1 &2085151627
 GameObject:
   m_ObjectHideFlags: 0

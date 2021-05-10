@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PackageBuild : EditorWindow
 {
-    [MenuItem("Tools / 打包")]  //添加菜单选项
+    [MenuItem("ZTools / 打包")]  //添加菜单选项
     public static void ShowWindow()
     {
         EditorWindow window = EditorWindow.GetWindowWithRect(typeof(PackageBuild), new Rect(Screen.width / 3, Screen.height / 3, 500, 180), true, "打包界面");

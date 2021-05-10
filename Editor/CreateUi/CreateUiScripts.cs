@@ -144,7 +144,7 @@ public class CreateUiScripts : Editor
     /// <summary>
     /// 生成脚本
     /// </summary>
-    [MenuItem("Tools/创建ui脚本", false, 12)]
+    [MenuItem("ZTools/创建ui脚本", false, 12)]
     public static void CreateScript()
     {
         GameObject[] select = Selection.gameObjects;

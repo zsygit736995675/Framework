@@ -41,7 +41,7 @@ public class ExcelEditor : EditorWindow
     string version = "20200331";
 
 
-    [MenuItem("Tools /Build表格")]  //添加菜单选项
+    [MenuItem("ZTools /Build表格")]  //添加菜单选项
     public static void ShowWindow()
     {
         EditorWindow window = EditorWindow.GetWindowWithRect(typeof(ExcelEditor), new Rect(Screen.width / 3, Screen.height / 3, 500, 100), true, "配置文件生成窗口");

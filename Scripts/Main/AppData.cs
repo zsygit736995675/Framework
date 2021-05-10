@@ -6,18 +6,12 @@
 /// </summary>
 public enum HttpServerAddress
 {
-    /// <summary>
-    /// 正式
-    /// </summary>
-    Release,
-    /// <summary>
-    /// 内网
-    /// </summary>
-    Intranet,
-    /// <summary>
-    /// 测试
-    /// </summary>
+    [InspectorName("测试服")]
     Debug,
+    [InspectorName("正式服")]
+    Release,
+    [InspectorName("内网")]
+    Intranet,
 }
 
 /// <summary>
@@ -25,16 +19,14 @@ public enum HttpServerAddress
 /// </summary>
 public enum SysType 
 {
-    /// <summary>
-    /// 默认
-    /// </summary>
-    Default=1
+    [InspectorName("默认")]
+    Default =1
 }
 
 
 public class AppData : SingletonGetMono<AppData>
 {
-    
+    [Header("服务器")]
     public HttpServerAddress serverType =HttpServerAddress.Debug;
 
 

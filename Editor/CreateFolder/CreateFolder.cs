@@ -8,7 +8,7 @@ using System.IO;
 /// </summary>
 public class CreateFile
 {
-    [MenuItem("Tools/创建默认文件夹")]//需要引入命名空间using UnityEditor
+    [MenuItem("ZTools/创建默认文件夹")]//需要引入命名空间using UnityEditor
     public static void CreateFolder()
     {
         string path = Application.dataPath + "/";
