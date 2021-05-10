@@ -86,8 +86,12 @@ public class ScollToDraw : MonoBehaviour
     /// 排除的位置
     /// </summary>
     int bigIndex;
+
+    float deltaTime;
     void ResetImage()
     {
+        //因为deltaTime会不稳定，所以保存一个稳定的帧率
+        deltaTime = Time.deltaTime;
         List<Sprite> sprites = new List<Sprite>(Resources.LoadAll<Sprite>("Texture/Ui/Lottery"));
         for (int i = 0; i < ArardImgArr.Length; i++)
         {
@@ -113,7 +117,7 @@ public class ScollToDraw : MonoBehaviour
 
         if (isStopUpdatePos) return;
 
-        float t = Time.deltaTime * AniMoveSpeed;
+        float t = deltaTime * AniMoveSpeed;
         for (int i = 0; i < ArardImgArr.Length; i++)
         {
             progress[i] += t;
