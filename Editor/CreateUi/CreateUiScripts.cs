@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,17 +75,17 @@ public class CreateUiScripts : Editor
         Eg_str = Eg_str.Replace("@Name", nameStr);
 
         //储存文档
-        SaveFileDialog saveFile = new SaveFileDialog();
-        saveFile.FileName = ClassName + ".cs";
-
-        string path = Environment.CurrentDirectory.Replace("/", @"\");
-        if (saveFile.ShowDialog() == DialogResult.OK)
-        {
-            string[] name = saveFile.FileName.Split('\\');
-            //  string nameStr = name[name.Length - 1].Replace(".cs", "");
-            Eg_str = Eg_str.Replace("@Name", nameStr);
-            File.WriteAllText(saveFile.FileName, Eg_str);
-        }
+       // // SaveFileDialog saveFile = new SaveFileDialog();
+       //  saveFile.FileName = ClassName + ".cs";
+       //
+       //  string path = Environment.CurrentDirectory.Replace("/", @"\");
+       //  if (saveFile.ShowDialog() == DialogResult.OK)
+       //  {
+       //      string[] name = saveFile.FileName.Split('\\');
+       //      //  string nameStr = name[name.Length - 1].Replace(".cs", "");
+       //      Eg_str = Eg_str.Replace("@Name", nameStr);
+       //      File.WriteAllText(saveFile.FileName, Eg_str);
+       //  }
     }
 
     /// <summary>
