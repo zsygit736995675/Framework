@@ -54,7 +54,7 @@ namespace SY_FrameWork
         /// </summary>
         private static string version;
 
-        [MenuItem("SY_Tools/导表")]
+        [MenuItem("SY_Tools/导表",false,1)]
         public static void ShowWindow()
         {
             GetRootPath(nameof(ExcelEditor));

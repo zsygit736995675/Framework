@@ -9,7 +9,7 @@ namespace SY_FrameWork
     /// </summary>
     public class CreateFile
     {
-        [MenuItem("SY_Tools/创建默认文件夹")]
+        [MenuItem("SY_Tools/创建默认文件夹",false,3)]
         public static void CreateFolder()
         {
             string path = Application.dataPath + "/";

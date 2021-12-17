@@ -111,37 +111,6 @@ public class StrUtils
         return decodedString;
     }
 
-
-    /// <summary>
-    /// 通过id获取字符串
-    /// </summary>
-    public static string GetStr(int id)
-    {
-        StrConfig con = StrConfig.Get(id);
-        if (con != null)
-        {
-            switch (Application.systemLanguage)
-            {
-                case SystemLanguage.English:
-                    return con.en;
-                case SystemLanguage.Chinese:
-                case SystemLanguage.ChineseSimplified:
-                case SystemLanguage.ChineseTraditional:
-                    return con.zh;
-                case SystemLanguage.Spanish:
-                    return con.sp;
-                case SystemLanguage.German:
-                    return con.ge;
-            }
-            return con.zh;
-        }
-        else
-        {
-            Debug.LogError("GetStr error:" + "ID：" + id);
-            return "";
-        }
-    }
-
     /// <summary>
     /// 字符串解析数组
     /// </summary>

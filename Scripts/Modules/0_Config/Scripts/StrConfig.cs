@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace SY_FrameWork
 {
     public class StrConfig  {
-        	/// <summary>	///字符表	/// <summary>	public int id { get; set; }	/// <summary>	///中文	/// <summary>	public string zh { get; set; }	/// <summary>	///英文	/// <summary>	public string en { get; set; }	/// <summary>	///日文	/// <summary>	public string jp { get; set; }	/// <summary>	///韩文	/// <summary>	public string kr { get; set; }	/// <summary>	///西语	/// <summary>	public string sp { get; set; }	/// <summary>	///德语	/// <summary>	public string ge { get; set; }	/// <summary>	///本地id	/// <summary>	public int localId { get; set; } 
+        	/// <summary>	///字符表	/// <summary>	public int id { get; set; }	/// <summary>	///中文	/// <summary>	public string _zh { get; set; }	/// <summary>	///英文	/// <summary>	public string _en { get; set; }	/// <summary>	///印地语	/// <summary>	public string _hi { get; set; }	/// <summary>	///日文	/// <summary>	public string _jp { get; set; }	/// <summary>	///韩文	/// <summary>	public string _kr { get; set; }	/// <summary>	///西语	/// <summary>	public string _sp { get; set; }	/// <summary>	///德语	/// <summary>	public string _ge { get; set; } 
     
         public static string configName = "StrConfig";
         

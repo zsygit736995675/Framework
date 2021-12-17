@@ -31,9 +31,12 @@ public class TestMain : MonoBehaviour
         EventMgrHelper.Ins.PushEvent(EventDef.Callback, strData0: "这是个事件");
 
         //表格部分
-        Debug.Log(StrConfig.Get(1).zh); 
+        Debug.Log(StrConfig.Get(1)._zh); 
         Debug.Log(StrConfig.Datas.Length);
         Debug.Log(StrConfig.Version);
+        
+        //多語言
+        LanguageManager.Instance.InitLanguage();
 
         //下载部分
         LoadUtils.SetImage(imgurl, GetComponentInChildren<Image>(), "Texture");
