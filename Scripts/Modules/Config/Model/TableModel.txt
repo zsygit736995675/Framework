@@ -1,0 +1,41 @@
+using UnityEngine;
+using Newtonsoft.Json;
+
+namespace SY_FrameWork
+{
+    public class @Name  {
+        @File1 
+    
+        public static string configName = "@Name";
+        
+        public static string Version { get { return Config.version; } }
+        
+        public static @Name [] Datas { get { return Config.datas; } }
+        
+        public static @Name Config {get { if (config == null) Init(); return config;}}
+        
+        private static @Name config;
+        
+        public string version { get; set; }
+        
+        public @Name [] datas { get; set; }
+    
+        private static void Init()
+        {
+            TextAsset jsonStr = Resources.Load(configName) as TextAsset;
+            config = JsonConvert.DeserializeObject<@Name>(jsonStr.text);
+        }
+        
+        public static @Name Get(int id)
+        {
+            foreach (var item in Config.datas)
+            {
+                if (item.id == id)
+                { 
+                    return item;
+                }
+            }
+            return null;
+        }
+    }
+}

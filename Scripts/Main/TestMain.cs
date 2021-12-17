@@ -1,4 +1,5 @@
 ﻿using System;
+using SY_FrameWork;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,6 @@ public class TestMain : MonoBehaviour
 
         //表格部分
         Debug.Log(StrConfig.Get(1).zh); 
-        Debug.Log(UnitConfig.Get(5).directory[0]); ;
         Debug.Log(StrConfig.Datas.Length);
         Debug.Log(StrConfig.Version);
 
