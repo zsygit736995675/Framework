@@ -67,16 +67,7 @@ namespace SY_FrameWork
             //gradle设置需要模板
             TextAsset gradleStr = Resources.Load("File/gradleStr") as TextAsset;
             string str = gradleStr.text
-            .Replace("@toponAppId", Config.ToponAPPID)
-            .Replace("@toponAppkey", Config.ToponAPPKEY)
-            .Replace("@umkey", Config.um_key)
-            .Replace("@splash_id", Config.openID)
-            .Replace("@wx_id", Config.wxAPPID)
-            .Replace("@csj_app_id", Config.csj_id)
-            .Replace("@csj_slot_id", Config.csj_slot_id)
-            .Replace("@source_id", Config.source_id)
-            .Replace("@package_name", Config.packageName)
-            .Replace("@aliyun_key", Config.aliyun_key);
+                .Replace("@package_name", Config.packageName);
             File.WriteAllText(UnityEngine.Application.dataPath + "/Plugins/Android/mainTemplate.gradle", str);
 
             //manifest文件替换
