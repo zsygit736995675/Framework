@@ -2,14 +2,14 @@
 using UnityEditor;
 using System.IO;
 
-namespace ZFrame
+namespace SY_FrameWork
 {
     /// <summary>
     /// 创建文件夹  
     /// </summary>
     public class CreateFile
     {
-        [MenuItem("ZTools/创建默认文件夹")]//需要引入命名空间using UnityEditor
+        [MenuItem("SY_Tools/创建默认文件夹")]
         public static void CreateFolder()
         {
             string path = Application.dataPath + "/";

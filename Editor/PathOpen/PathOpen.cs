@@ -1,34 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-/// <summary>
-/// 打开到系统文件夹
-/// </summary>
-public class PathOpen {
+namespace SY_FrameWork
+{
+    /// <summary>
+    /// 打开到系统文件夹
+    public class PathOpen {
     
-    [MenuItem("ZTools/打开到文件夹/dataPath")]
-    static void OpendataPath()
-    {
-        System.Diagnostics.Process.Start(Application.dataPath);
+        [MenuItem("SY_Tools/打开到文件夹/dataPath")]
+        static void OpendataPath()
+        {
+            System.Diagnostics.Process.Start(Application.dataPath);
+        }
+
+        [MenuItem("SY_Tools/打开到文件夹/persistentDataPath")]
+        static void OpenpersistentDataPath()
+        {
+            System.Diagnostics.Process.Start(Application.persistentDataPath);
+        }
+
+        [MenuItem("SY_Tools/打开到文件夹/streamingAssetsPath")]
+        static void OpenstreamingAssetsPath()
+        {
+            System.Diagnostics.Process.Start(Application.streamingAssetsPath);
+        }
+
+        [MenuItem("SY_Tools/打开到文件夹/temporaryCachePath")]
+        static void OpentemporaryCachePath()
+        {
+            System.Diagnostics.Process.Start(Application.temporaryCachePath);
+        }
     }
 
-    [MenuItem("ZTools/打开到文件夹/persistentDataPath")]
-    static void OpenpersistentDataPath()
-    {
-        System.Diagnostics.Process.Start(Application.persistentDataPath);
-    }
-
-    [MenuItem("ZTools/打开到文件夹/streamingAssetsPath")]
-    static void OpenstreamingAssetsPath()
-    {
-        System.Diagnostics.Process.Start(Application.streamingAssetsPath);
-    }
-
-    [MenuItem("ZTools/打开到文件夹/temporaryCachePath")]
-    static void OpentemporaryCachePath()
-    {
-        System.Diagnostics.Process.Start(Application.temporaryCachePath);
-    }
 }

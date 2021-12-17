@@ -20,11 +20,9 @@ public class BaseClass<T> where T : class, new()
                 //lock关键字用来确保代码块完成运行，避免多线程操作的时候出现问题
                 lock (syslock)
                 {
-
                     if (_instance == null)
                     {
                         _instance = new T();
-                        
                     }
                 }
             }
