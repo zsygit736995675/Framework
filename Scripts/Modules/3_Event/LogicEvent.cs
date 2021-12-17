@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// 事件参数对象
+/// 浜嬩欢鍙傛暟瀵硅薄
 /// </summary>
 public class LogicEvent
 {

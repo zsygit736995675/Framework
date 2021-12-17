@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 
     /// <summary>
-    /// 事件注册 分发
+    /// 浜嬩欢娉ㄥ唽 鍒嗗彂
     /// </summary>
 public class EventMgrHelper : BaseClass<EventMgrHelper>
 {
     private Dictionary<EventDef, List<EventHandler>> mDicHandler = new Dictionary<EventDef, List<EventHandler>>();
 
     /// <summary>
-    /// 注册事件
+    /// 娉ㄥ唽浜嬩欢
     /// </summary>
     public void RegisterEventHandler(EventDef ed, EventHandler handler)
     {
@@ -27,7 +27,7 @@ public class EventMgrHelper : BaseClass<EventMgrHelper>
     }
 
     /// <summary>
-    /// 解绑事件
+    /// 瑙ｇ粦浜嬩欢
     /// </summary>
     public void UnRegisterEventHandler(EventDef ed, EventHandler handler)
     {
