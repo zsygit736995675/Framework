@@ -39,16 +39,16 @@ namespace SY_FrameWork
         /// </summary>
         public void OnLocalize()
         {
-            //  Sprite sprite = LanguageManager.Instance.GetSprite(Key);
-            // if (sprite != null && image != null) 
-            // {
-            //     image.sprite = sprite;
-            //     image.SetNativeSize();
-            // }
-            // else
-            // {
-            //    
-            // }
+             Sprite sprite = LanguageManager.Instance.GetSprite(Key);
+            if (sprite != null && image != null) 
+            {
+                image.sprite = sprite;
+                image.SetNativeSize();
+            }
+            else
+            {
+               
+            }
         }
     }
 

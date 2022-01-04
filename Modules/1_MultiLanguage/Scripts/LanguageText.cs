@@ -7,7 +7,7 @@ namespace SY_FrameWork
     /// Custom Text Control used for localization text.
     /// </summary>
     [AddComponentMenu("UI/LocalizationText", 10)]
-    public class LocalizationText : MonoBehaviour
+    public class LanguageText : MonoBehaviour
     {
         /// <summary>
         /// 文本的key

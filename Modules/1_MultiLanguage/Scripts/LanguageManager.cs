@@ -113,46 +113,46 @@ namespace SY_FrameWork
             return config._zh;
         }
 
-        // /// <summary>
-        // /// 图片加载
-        // /// </summary>
-        // M_Atlas imgs;
-        //
-        // M_Atlas Imgs
-        // {
-        //     get
-        //     {
-        //         if (imgs == null)
-        //         {
-        //             imgs = Resources.Load<M_Atlas>("Scriptable/LanguagePic");
-        //         }
-        //
-        //         return imgs;
-        //     }
-        // }
+         /// <summary>
+         /// 图片加载
+         /// </summary>
+         LanguageSetting imgs;
+        
+         LanguageSetting Imgs
+         {
+             get
+             {
+                 if (imgs == null)
+                 {
+                     imgs = Resources.Load<LanguageSetting>("Scriptable/LanguagePic");
+                 }
+        
+                 return imgs;
+             }
+         }
 
-        // <summary>
+         ///<summary>
         /// 获取图片
         /// </summary>
-        // public Sprite GetSprite(string tag)
-        // {
-        //     foreach (var item in Imgs.spriteTags)
-        //     {
-        //         if (item.key == tag)
-        //         {
-        //             switch (CurrentLanguage)
-        //             {
-        //                 case LanguageConst.zh:
-        //                     return item.Chinese;
-        //                 case LanguageConst.en:
-        //                     return item.English;
-        //                 case LanguageConst.hi:
-        //                     return item.Hindi;
-        //             }
-        //         }
-        //     }
-        //     return null;
-        // }
+         public Sprite GetSprite(string tag)
+         {
+             foreach (var item in Imgs.sprites)
+             {
+                 if (item.tag == tag)
+                 {
+                     switch (CurrentLanguage)
+                     {
+                         case LanguageConst.zh:
+                             return item.zhSprite;
+                         case LanguageConst.en:
+                             return item.enSprite;
+                         case LanguageConst.hi:
+                             return item.hiSprite;
+                     }
+                 }
+             }
+             return null;
+         }
         
         /// <summary>
         /// 获取系统语言
