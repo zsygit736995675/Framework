@@ -426,23 +426,4 @@ namespace SY_FrameWork
         }
     }
     
-    // /// <summary>
-    // /// 实体类模板
-    // /// </summary>
-    // static string Eg_str =
-    //     "using UnityEngine;\r" +
-    //     "using Newtonsoft.Json;\r\r" +
-    //     "public class @Name  {\r\r\t\t" +
-    //     "@File1 \r\t\t" +
-    //     "public static string configName = \"@Name\";\r\t\t" +
-    //     "public static string Version { get { return Config.version; } }\r\t\t" +
-    //     "public static @Name [] Datas { get { return Config.datas; } }\r\t\t" +
-    //     "public static @Name Config {get { if (config == null) Init(); return config;}}\r\r\t\t" +
-    //     "private static @Name config;\r\t\t" +
-    //     "public string version { get; set; }\r\t\t" +
-    //     "public @Name [] datas { get; set; }\r\r\t\t" +
-    //     "private static void Init()\r\t\t{\r\t\t\tTextAsset jsonStr = Resources.Load(configName) as TextAsset;\r\t\t\t" +
-    //     "config = JsonConvert.DeserializeObject<@Name>(jsonStr.text);\r\t\t}\r\r\t\t" +
-    //     "public static @Name Get(int id)\r\t\t{\r\t\t\tforeach (var item in Config.datas)\r\t\t\t{\r\t\t\t\tif (item.id == id)\r\t\t\t\t{ \r\t\t\t\t\treturn item;\r\t\t\t\t}\r\t\t\t}\r\t\t\treturn null;\r\t\t}\r\r\t\t" +
-    //     "\r}";
 }
