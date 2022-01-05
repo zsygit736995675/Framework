@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640102aeb4575a7408668b0a7ee430fc, type: 3}
   m_Name: LanguageSetting
   m_EditorClassIdentifier: 
+  sprites:
+  - tag: 
+    zhSprite: {fileID: 0}
+    enSprite: {fileID: 0}
+    hiSprite: {fileID: 0}
