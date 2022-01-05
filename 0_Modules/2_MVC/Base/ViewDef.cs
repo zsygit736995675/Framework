@@ -1,5 +1,5 @@
 /**
- * view×Ö¶Î
+ * viewå­—æ®µ
  */
 public enum ViewDef
 {
