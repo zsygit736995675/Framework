@@ -98,14 +98,25 @@ namespace SY_FrameWork
                 string[] strs = Selection.assetGUIDs;
                 if (strs.Length > 0)
                 {
-                    var path = Path.GetFullPath(AssetDatabase.GUIDToAssetPath(strs[0]));
-                    LoadData(path, Path.GetFileName(path));
-                    AssetDatabase.Refresh();
+                    foreach (var UPPER in strs)
+                    {
+                        var path = Path.GetFullPath(AssetDatabase.GUIDToAssetPath(strs[0]));
+                        string fileName = Path.GetFileName(path);
+                        if (!fileName.EndsWith("xlsx"))
+                        {
+                            Debug.LogError("所选文件不符合");
+                            continue;
+                        }
+                       
+                        LoadData(path, fileName);
+                        Debug.Log($"已完成:{fileName}");  
+                    }
                 }
                 else
                 {
-                    Debug.LogError("没有选中的Excel文件");  
+                    Debug.LogError("没有选中任何文件！");  
                 }
+                AssetDatabase.Refresh();
             }
 
             GUILayout.Space(10);
@@ -161,7 +172,7 @@ namespace SY_FrameWork
                     if (files[i].Name.EndsWith(".meta") || !files[i].Name.EndsWith(".xlsx"))
                         continue;
 
-                    Debug.Log("FullName==>>" + files[i].FullName);
+                    Debug.Log($"已完成==>>{files[i].FullName}");
                     LoadData(files[i].FullName, files[i].Name);
                 }
             }
