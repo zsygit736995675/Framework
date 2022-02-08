@@ -104,7 +104,7 @@ namespace SY_FrameWork
                         string fileName = Path.GetFileName(path);
                         if (!fileName.EndsWith("xlsx"))
                         {
-                            Debug.LogError("所选文件不符合");
+                            Debug.LogError($"所选文件不符合:{fileName}");
                             continue;
                         }
                        

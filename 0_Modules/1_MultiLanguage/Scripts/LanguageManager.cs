@@ -58,10 +58,7 @@ namespace SY_FrameWork
                 CurrentLanguage = PlayerPrefs.GetString(saveKey);
                 return;
             }
-            CurrentLanguage = defaultLanguage;
-    #if  UNITY_ANDROID && !UNITY_EDITOR
-           CurrentLanguage = GetLocalLanguage();
-    #endif
+            CurrentLanguage = GetLocalLanguage();
         }
 
         /// <summary>
@@ -162,7 +159,7 @@ namespace SY_FrameWork
         {
     #if UNITY_EDITOR
             return defaultLanguage;
-    #else
+    #elif UNITY_ANDROID && !UNITY_EDITOR
             AndroidJavaClass unityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject _unityContext = unityClass.GetStatic<AndroidJavaObject>("currentActivity");
             AndroidJavaObject locale = _unityContext.Call<AndroidJavaObject>("getResources").Call<AndroidJavaObject>("getConfiguration").Get<AndroidJavaObject>("locale");
@@ -170,6 +167,7 @@ namespace SY_FrameWork
             return systemLanguage;
     #endif
         }
+        
     }
 }
 

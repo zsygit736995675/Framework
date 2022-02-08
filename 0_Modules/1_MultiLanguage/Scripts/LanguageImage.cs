@@ -45,10 +45,6 @@ namespace SY_FrameWork
                 image.sprite = sprite;
                 image.SetNativeSize();
             }
-            else
-            {
-               
-            }
         }
     }
 
