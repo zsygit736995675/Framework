@@ -4,7 +4,9 @@ using System.Data;
 using System.IO;
 using Excel;
 using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using UnityEditor;
 
 namespace SY_FrameWork
@@ -17,14 +19,27 @@ namespace SY_FrameWork
         /// <summary>
         /// 根目录（会刷新）
         /// </summary>
-        private static string rootDirectory = "D:/MyGit/Bubble/MyBubble/Assets/SY_Framework/Scripts/Modules/Config/";
+        private static string _rootDirectory ;
+
+        private static string RootDirectory
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_rootDirectory))
+                {
+                    GetRootPath(nameof(ExcelEditor));
+                }
+
+                return _rootDirectory;
+            }
+        }
 
         /// <summary>
         /// 脚本存放位置
         /// </summary>
         private static string scriptsPath
         {
-            get { return rootDirectory + "Scripts/"; }
+            get { return RootDirectory + "Scripts/"; }
         }
 
         /// <summary>
@@ -32,7 +47,7 @@ namespace SY_FrameWork
         /// </summary>
         private static string jsonPath
         {
-            get { return rootDirectory + "Resources/"; }
+            get { return RootDirectory + "Resources/"; }
         }
 
         /// <summary>
@@ -40,7 +55,7 @@ namespace SY_FrameWork
         /// </summary>
         private static string tablePath
         {
-            get { return rootDirectory + "Table/"; }
+            get { return RootDirectory + "Table/"; }
         }
 
         /// <summary>
@@ -48,7 +63,7 @@ namespace SY_FrameWork
         /// </summary>
         private static string modelPath
         {
-            get { return rootDirectory + "Model/"; }
+            get { return RootDirectory + "Model/"; }
         }
 
         /// <summary>
@@ -65,6 +80,12 @@ namespace SY_FrameWork
         /// 完整的版本号
         /// </summary>
         private static string version;
+
+        /// <summary>
+        /// 是否压缩
+        /// </summary>
+        private static bool isCompression = false;
+        
 
         [MenuItem("SY_Tools/导表", false, 1)]
         public static void ShowWindow()
@@ -89,8 +110,8 @@ namespace SY_FrameWork
             }
 
             string root = Application.dataPath.Replace("Assets", "");
-            rootDirectory = root + AssetDatabase.GUIDToAssetPath(path[0]).Replace((@"Editor/" + _scriptName + ".cs"), "");
-            Debug.Log("Root Directory:" + rootDirectory);
+            _rootDirectory = root + AssetDatabase.GUIDToAssetPath(path[0]).Replace((@"Editor/" + _scriptName + ".cs"), "");
+            Debug.Log("Root Directory:" + _rootDirectory);
         }
 
         private void OnGUI()
@@ -104,30 +125,12 @@ namespace SY_FrameWork
         /// </summary>
         void DrawButton()
         {
+            isCompression = GUILayout.Toggle(isCompression,"Json是否进行压缩");
+                
+            GUILayout.Space(10);
             if (GUILayout.Button("BuildSelected"))
             {
-                string[] strs = Selection.assetGUIDs;
-                if (strs.Length > 0)
-                {
-                    foreach (var UPPER in strs)
-                    {
-                        var path = Path.GetFullPath(AssetDatabase.GUIDToAssetPath(strs[0]));
-                        string fileName = Path.GetFileName(path);
-                        if (!fileName.EndsWith("xlsx"))
-                        {
-                            Debug.LogError($"所选文件不符合:{fileName}");
-                            continue;
-                        }
-
-                        LoadData(path, fileName);
-                        Debug.Log($"已完成:{fileName}");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("没有选中任何文件！");
-                }
-
+                SelectionRead();
                 AssetDatabase.Refresh();
             }
 
@@ -136,6 +139,31 @@ namespace SY_FrameWork
             {
                 ReadExcel();
                 AssetDatabase.Refresh();
+            }
+        }
+
+        void SelectionRead()
+        {
+            string[] fils = Selection.assetGUIDs;
+            if (fils.Length > 0)
+            {
+                foreach (var file in fils)
+                {
+                    var path = Path.GetFullPath(AssetDatabase.GUIDToAssetPath(file));
+                    string fileName = Path.GetFileName(path);
+                    if (!fileName.EndsWith("xlsx"))
+                    {
+                        Debug.LogError($"所选文件不符合:{fileName}");
+                        continue;
+                    }
+
+                    LoadData(path, fileName);
+                    Debug.Log($"已完成:{fileName}");
+                }
+            }
+            else
+            {
+                Debug.LogError("没有选中任何文件！");
             }
         }
 
@@ -332,7 +360,8 @@ namespace SY_FrameWork
             o["version"] = version;
 
             fileName = fileName.Replace(".xlsx", ".json");
-            File.WriteAllText(jsonPath + fileName, o.ToString());
+            string saveJaon = JsonConvert.SerializeObject(o,isCompression? Formatting.None: Formatting.Indented);
+            File.WriteAllText(jsonPath + fileName, saveJaon);
         }
 
         /// <summary>
