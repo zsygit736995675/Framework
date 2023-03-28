@@ -15,7 +15,7 @@ namespace SY_FrameWork
         public static @Name Config {get { if (config == null) Init(); return config;}}
         
         private static @Name config;
-        
+                                                                                                                                                    
         public string version { get; set; }
         
         public @Name [] datas { get; set; }

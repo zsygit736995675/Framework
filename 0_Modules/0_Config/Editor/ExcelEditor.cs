@@ -425,8 +425,10 @@ namespace SY_FrameWork
                 string note = result.Tables[0].Rows[0][i].ToString();
                 note = note.Replace("\n", "");
                 note = note.Replace("\r", "");
-                field += "\r\t/// <summary>\r\t///" + note + "\r\t/// <summary>\r\t" +
-                         "public " + typeStr + " " + nameStr + " { get; set; }";
+                field += "\r\t\t/// <summary>" + 
+                         $"\r\t\t/// { note } "+ 
+                         "\r\t\t/// <summary>" +
+                         $"\r\t\tpublic {typeStr} {nameStr}"+ " { get; set; }\r";
             }
 
             fileName = fileName.Replace(".xlsx", "");
