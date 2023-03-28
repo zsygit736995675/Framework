@@ -22,22 +22,34 @@ namespace SY_FrameWork
         /// <summary>
         /// 脚本存放位置
         /// </summary>
-        private static string scriptsPath { get { return rootDirectory + "Scripts/"; } }
+        private static string scriptsPath
+        {
+            get { return rootDirectory + "Scripts/"; }
+        }
 
         /// <summary>
         /// json文件存放位置
         /// </summary>
-        private static string jsonPath { get { return rootDirectory + "Resources/"; } }
+        private static string jsonPath
+        {
+            get { return rootDirectory + "Resources/"; }
+        }
 
         /// <summary>
         /// 表格存放位置
         /// </summary>
-        private static string tablePath { get { return rootDirectory + "Table/"; } }  
-        
+        private static string tablePath
+        {
+            get { return rootDirectory + "Table/"; }
+        }
+
         /// <summary>
         /// 模板存放位置
         /// </summary>
-        private static string modelPath { get { return rootDirectory + "Model/"; } }
+        private static string modelPath
+        {
+            get { return rootDirectory + "Model/"; }
+        }
 
         /// <summary>
         ///  版本号
@@ -54,13 +66,12 @@ namespace SY_FrameWork
         /// </summary>
         private static string version;
 
-        [MenuItem("SY_Tools/导表",false,1)]
+        [MenuItem("SY_Tools/导表", false, 1)]
         public static void ShowWindow()
         {
             GetRootPath(nameof(ExcelEditor));
 
-            EditorWindow window = EditorWindow.GetWindowWithRect(typeof(ExcelEditor),
-                new Rect(Screen.width / 3, Screen.height / 3, 600, 150), true, "配置文件生成窗口");
+            EditorWindow window = EditorWindow.GetWindowWithRect(typeof(ExcelEditor), new Rect(Screen.width / 3, Screen.height / 3, 600, 150), true, "配置文件生成窗口");
             window.Show();
         }
 
@@ -78,7 +89,7 @@ namespace SY_FrameWork
             }
 
             string root = Application.dataPath.Replace("Assets", "");
-            rootDirectory =root + AssetDatabase.GUIDToAssetPath(path[0]).Replace((@"Editor/" + _scriptName + ".cs"), "");
+            rootDirectory = root + AssetDatabase.GUIDToAssetPath(path[0]).Replace((@"Editor/" + _scriptName + ".cs"), "");
             Debug.Log("Root Directory:" + rootDirectory);
         }
 
@@ -107,15 +118,16 @@ namespace SY_FrameWork
                             Debug.LogError($"所选文件不符合:{fileName}");
                             continue;
                         }
-                       
+
                         LoadData(path, fileName);
-                        Debug.Log($"已完成:{fileName}");  
+                        Debug.Log($"已完成:{fileName}");
                     }
                 }
                 else
                 {
-                    Debug.LogError("没有选中任何文件！");  
+                    Debug.LogError("没有选中任何文件！");
                 }
+
                 AssetDatabase.Refresh();
             }
 
@@ -136,8 +148,8 @@ namespace SY_FrameWork
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("版本号:", GUILayout.Width(100));
             string dateStr = DateTime.Now.ToString("yyyyMMdd");
-            long v = long.Parse(dateStr) * 1000 + versionNum;
-            EditorGUILayout.LabelField(v.ToString(), GUILayout.Width(150));
+            version = (long.Parse(dateStr) * 1000 + versionNum).ToString();
+            EditorGUILayout.LabelField(version, GUILayout.Width(150));
             if (GUILayout.Button("-", GUILayout.Width(20)))
                 versionNum--;
             versionNum = int.Parse(EditorGUILayout.TextField(versionNum.ToString(), GUILayout.Width(100)));
@@ -154,7 +166,7 @@ namespace SY_FrameWork
             GUILayout.EndHorizontal();
             GUILayout.Space(10);
         }
-        
+
         /// <summary>
         /// 遍历文件夹，读取所有表格
         /// </summary>
@@ -217,7 +229,7 @@ namespace SY_FrameWork
 
                 CreateJson(result, fileName);
                 CreateTemplate(result, fileName);
-                
+
                 fileStream.Close();
                 result.Clear();
             }
@@ -239,7 +251,7 @@ namespace SY_FrameWork
             int rows = result.Tables[0].Rows.Count;
             // 表格数据列表
             List<TableData> dataList = new List<TableData>();
-           
+
             JArray array = new JArray();
 
             //第一行为表头，第二行为类型 ，第三行为字段名 不读取
@@ -339,6 +351,7 @@ namespace SY_FrameWork
             {
                 arry.Add(GetValue<T>(ss[i]));
             }
+
             return arry;
         }
 
@@ -347,7 +360,7 @@ namespace SY_FrameWork
             T t = default;
             try
             {
-                t = (T) Convert.ChangeType(value, typeof(T));
+                t = (T)Convert.ChangeType(value, typeof(T));
             }
             catch (Exception e)
             {
@@ -356,7 +369,7 @@ namespace SY_FrameWork
 
             return t;
         }
-        
+
         /// <summary>
         /// 解析Vector3
         /// </summary>
@@ -368,17 +381,17 @@ namespace SY_FrameWork
             str = str.Replace("(", "");
             str = str.Replace(")", "");
             string[] ss = str.Split(',');
-            float x=0, y=0, z=0;
+            float x = 0, y = 0, z = 0;
             int length = ss.Length;
-            if (length> 0)
+            if (length > 0)
             {
-                x = length>=1?float.Parse(ss[0]):0;
-                y= length>=2?float.Parse(ss[1]):0;
-                z= length>=3?float.Parse(ss[2]):0;
+                x = length >= 1 ? float.Parse(ss[0]) : 0;
+                y = length >= 2 ? float.Parse(ss[1]) : 0;
+                z = length >= 3 ? float.Parse(ss[2]) : 0;
             }
-       
+
             //{   "x" : 1.0,   "y" : 1.0,    "z" : 1.0}
-            string json ="-{"+ string.Format("-\"x-\" : {0}, -\"y-\" : {1}, -\"z-\" : {2}",x,y,z)+"}-";
+            string json = "-{" + string.Format("-\"x-\" : {0}, -\"y-\" : {1}, -\"z-\" : {2}", x, y, z) + "}-";
             return json;
         }
 
@@ -402,7 +415,7 @@ namespace SY_FrameWork
                 {
                     typeStr = "Vector3";
                 }
-                
+
                 string nameStr = result.Tables[0].Rows[2][i].ToString();
                 if (string.IsNullOrEmpty(typeStr) || string.IsNullOrEmpty(nameStr))
                 {
@@ -417,7 +430,7 @@ namespace SY_FrameWork
             }
 
             fileName = fileName.Replace(".xlsx", "");
-            string tempStr = System.IO.File.ReadAllText(modelPath+"TableModel.txt");
+            string tempStr = System.IO.File.ReadAllText(modelPath + "TableModel.txt");
             tempStr = tempStr.Replace("@Name", fileName);
             tempStr = tempStr.Replace("@File1", field);
             tempStr = tempStr.Replace("@json", "");
@@ -436,5 +449,4 @@ namespace SY_FrameWork
             return string.Format("fieldName:{0} type:{1} value:{2}", fieldName, type, value);
         }
     }
-    
 }
