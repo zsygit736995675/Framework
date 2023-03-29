@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6319050284185377205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6319050284185377203}
+  - component: {fileID: 6319050284185377204}
+  m_Layer: 0
+  m_Name: LanguageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6319050284185377203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319050284185377205}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6319050284185377204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319050284185377205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8bba333d2385a54a884c9f09be3ba51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countrys:
+  - Country: Auto System
+    shortName: fw
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 0
+    annotate: "\u8DDF\u968F\u7CFB\u7EDF"
+  - Country: "\u4E2D\u6587\u7B80\u4F53"
+    shortName: zh
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 1
+    annotate: "\u4E2D\u6587\u7B80\u4F53"
+  - Country: English
+    shortName: en
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 2
+    annotate: "\u82F1\u6587"
+  - Country: "\u0939\u093F\u0928\u094D\u0926\u0940"
+    shortName: hi
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 3
+    annotate: "\u5370\u5730\u8BED"
+  - Country: "Portugu\xEAs"
+    shortName: po
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 4
+    annotate: "\u8461\u8404\u7259"
+  - Country: "T\xFCrk\xE7e"
+    shortName: tr
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 5
+    annotate: "\u571F\u8033\u5176"
+  - Country: Indonesia
+    shortName: id
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 6
+    annotate: "\u5370\u5C3C"
+  - Country: "\u65E5\u672C\u8A9E"
+    shortName: ja
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 7
+    annotate: "\u65E5\u672C"
+  - Country: "\uD55C\uAD6D\uC5B4"
+    shortName: kr
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 8
+    annotate: "\u97E9\u8BED"
+  - Country: Deutsch
+    shortName: de
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 9
+    annotate: "\u5FB7\u8BED"
+  - Country: "Fran\xE7ais"
+    shortName: fr
+    font: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
+    sort: 10
+    annotate: "\u6CD5\u8BED"
+  currentFont: {fileID: 12800000, guid: edc9f323af2e2e04bb629f2bd86ed4c6, type: 3}
