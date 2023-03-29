@@ -6,7 +6,6 @@ using Excel;
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using UnityEditor;
 
 namespace SY_FrameWork
@@ -37,34 +36,22 @@ namespace SY_FrameWork
         /// <summary>
         /// 脚本存放位置
         /// </summary>
-        private static string scriptsPath
-        {
-            get { return RootDirectory + "Scripts/"; }
-        }
+        private static string scriptsPath { get { return RootDirectory + "Scripts/"; } }
 
         /// <summary>
         /// json文件存放位置
         /// </summary>
-        private static string jsonPath
-        {
-            get { return RootDirectory + "Resources/"; }
-        }
+        private static string jsonPath { get { return RootDirectory + "Resources/"; } }
 
         /// <summary>
         /// 表格存放位置
         /// </summary>
-        private static string tablePath
-        {
-            get { return RootDirectory + "Table/"; }
-        }
+        private static string tablePath { get { return RootDirectory + "Table/"; } }
 
         /// <summary>
         /// 模板存放位置
         /// </summary>
-        private static string modelPath
-        {
-            get { return RootDirectory + "Model/"; }
-        }
+        private static string modelPath { get { return RootDirectory + "Model/"; } }
 
         /// <summary>
         ///  版本号
@@ -92,7 +79,7 @@ namespace SY_FrameWork
         {
             GetRootPath(nameof(ExcelEditor));
 
-            EditorWindow window = EditorWindow.GetWindowWithRect(typeof(ExcelEditor), new Rect(Screen.width / 3, Screen.height / 3, 600, 150), true, "配置文件生成窗口");
+            EditorWindow window = GetWindowWithRect(typeof(ExcelEditor), new Rect(Screen.width / 3, Screen.height / 3, 600, 150), true, "配置文件生成窗口");
             window.Show();
         }
 
@@ -263,8 +250,7 @@ namespace SY_FrameWork
             }
             catch (Exception e)
             {
-                Debug.LogError(fileName);
-                Debug.LogError("表格读取失败==>>" + e);
+                Debug.LogError($"表格读取失败==>> FileName:{fileName}  error:{e}");
             }
         }
 
@@ -275,7 +261,7 @@ namespace SY_FrameWork
         {
             // 获取表格有多少列 
             int columns = result.Tables[0].Columns.Count;
-            // 获取表格有多少行 
+            // 获取表格有多少行  
             int rows = result.Tables[0].Rows.Count;
             // 表格数据列表
             List<TableData> dataList = new List<TableData>();
