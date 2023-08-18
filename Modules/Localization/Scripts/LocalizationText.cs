@@ -1,14 +1,14 @@
-
-using System.Linq;
+using System.Collections.Generic;
+using ArabicTool;
 using UnityEngine;
 using UnityEngine.UI;
+
 /// <summary>
 /// Custom Text Control used for localization text.
 /// </summary>
 [AddComponentMenu("UI/LocalizationText", 10)]
 public class LocalizationText : Text
 {
-
     /// <summary>
     /// 文本的key
     /// </summary>
@@ -23,38 +23,41 @@ public class LocalizationText : Text
     /// 是否开启自身的本地化
     /// </summary>
     public bool IsOpenLocalize = true;
+    
+    /// <summary>
+    /// 字体是否开启本地化
+    /// </summary>
+    public bool IsFontOpenLocalize = true;
 
     /// <summary>
     /// 参数
     /// </summary>
     object[] param;
-    
+
 
     protected override void Awake()
     {
         base.Awake();
-        if( CustomFont != null )
+        if (CustomFont != null)
         {
             font = CustomFont.UseFont;
         }
+
         OnLocalize();
-        
-        if( IsOpenLocalize )
+
+        if (Application.isPlaying && IsOpenLocalize)
         {
-            LanguageManager.OnLocalize += OnLocalize;
+            LanguageManager.Instance.OnLocalize += OnLocalize;
         }
     }
-    
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        
-        if( IsOpenLocalize )
+
+        if (Application.isPlaying && IsOpenLocalize && LanguageManager.Instance.OnLocalize != null)
         {
-            if(LanguageManager.OnLocalize != null )
-            {
-                LanguageManager.OnLocalize -= OnLocalize;
-            }
+            LanguageManager.Instance.OnLocalize -= OnLocalize;
         }
     }
 
@@ -63,46 +66,103 @@ public class LocalizationText : Text
     /// </summary>
     public void OnLocalize()
     {
-        if( IsOpenLocalize )
+        if (IsOpenLocalize)
         {
-            if (Key == -1)
+            if (LanguageManager.Instance != null)
             {
-                text = "";
-                if (param != null || param.Length > 0)
+                font = LanguageManager.Instance.CurrentFont;
+                string str = LanguageManager.GetStr(Key, param);
+                if (ArabicTextTool.HasArabicChar(str))
                 {
-                    text = param.First().ToString();
-                    return;
+                    DoSetArabText(str);
                 }
-                return;
+                else
+                {
+                    if (this.horizontalOverflow == HorizontalWrapMode.Overflow)
+                    {
+                        this.horizontalOverflow = HorizontalWrapMode.Wrap;
+                    }
+                    text = str;
+                }
             }
-
-            font = LanguageManager.Instance.currentFont;
-            if (param == null || param.Length == 0) 
-            {
-                text = LanguageManager.GetStr(Key);
-                return;
-            }
-            
-            text = LanguageManager.GetStr(Key,param);
         }
-        
-        if (GetComponent<ContentSizeFitter>() != null)
+    }
+    
+    private void DoSetArabText(string orgStr, float width = 0.0f, float height = 0.0f)
+    {
+        string str = ArabicTextTool.Convert(orgStr);
+        this.horizontalOverflow = HorizontalWrapMode.Wrap;
+        VerticalWrapMode verticalOverflow = this.verticalOverflow;
+        this.verticalOverflow = VerticalWrapMode.Overflow;
+        TextGenerator textGenerator = new TextGenerator(str.Length);
+        Vector2 extents = (double) width <= 0.0 || (double) height <= 0.0 ? this.GetComponent<RectTransform>().rect.size : new Vector2(width, height);
+        if ((double) extents.x == 0 && (double) extents.y == 0)
         {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(gameObject.GetComponent<RectTransform>());
+            Debug.LogError("[ArabicTool]Text rect is zero.");
+        }
+      
+        if ((double) extents.x == 0)
+        {
+            extents = new Vector2(Screen.width, extents.y);
+        }
+        textGenerator.Populate(str, this.GetGenerationSettings(extents));
+        UILineInfo[] linesArray = textGenerator.GetLinesArray();
+        List<int> lineinfo = new List<int>();
+        for (int index = 0; index < linesArray.Length; ++index)
+        {
+            int startCharIdx = linesArray[index].startCharIdx;
+            int num = -1;
+            if (index + 1 < linesArray.Length)
+                num = linesArray[index + 1].startCharIdx - startCharIdx;
+            if (num < 0)
+                num = str.Length - startCharIdx;
+            lineinfo.Add(num);
+        }
+        this.horizontalOverflow = HorizontalWrapMode.Overflow;
+        this.verticalOverflow = verticalOverflow;
+        text = ArabicTextTool.Reverse(str, ref lineinfo, true);
+    }
+
+
+    /// <summary>
+    /// 编辑器模式修改
+    /// </summary>
+    public void EditorOnLocalize(Font loadFont, CountryAndCode language)
+    {
+        if (IsOpenLocalize)
+        {
+            font = loadFont;
+            string str = LanguageManager.GetStr(Key,language, param);
+            if (ArabicTextTool.HasArabicChar(str))
+            {
+                DoSetArabText(str);
+            }
+            else
+            {
+                if (this.horizontalOverflow == HorizontalWrapMode.Overflow)
+                {
+                    this.horizontalOverflow = HorizontalWrapMode.Wrap;
+                }
+                text = str;
+            }
         }
     }
 
-    public void SetText(int key,params object [] param) 
+    public void SetText(int key, params object[] param)
     {
         this.Key = key;
         this.param = param;
         OnLocalize();
     }
 
-    public void SetText(params object [] param)
+    public void SetText(params object[] param)
     {
         this.param = param;
         OnLocalize();
     }
 
+    public void SetText(string str)
+    {
+        text = str;
+    }
 }

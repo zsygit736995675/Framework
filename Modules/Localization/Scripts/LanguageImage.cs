@@ -18,12 +18,12 @@ public class LanguageImage : MonoBehaviour
 
     protected void OnEnable()
     {
-        LanguageManager.OnLocalize += OnLocalize;
+        LanguageManager.Instance.OnLocalize += OnLocalize;
     }
 
     protected  void OnDisable()
     {
-        LanguageManager.OnLocalize -= OnLocalize;
+        LanguageManager.Instance.OnLocalize -= OnLocalize;
     }
 
     public void ChangeKey(string key) 
