@@ -18,9 +18,9 @@ namespace SY_FrameWork
         /// <summary>
         /// 根目录（会刷新）
         /// </summary>
-        private static string _rootDirectory ;
+        private static  string _rootDirectory ;
 
-        private static string RootDirectory
+        private string RootDirectory
         {
             get
             {
@@ -36,22 +36,22 @@ namespace SY_FrameWork
         /// <summary>
         /// 脚本存放位置
         /// </summary>
-        private static string scriptsPath { get { return RootDirectory + "Scripts/"; } }
+        private string scriptsPath { get { return RootDirectory + "Scripts/"; } }
 
         /// <summary>
         /// json文件存放位置
         /// </summary>
-        private static string jsonPath { get { return RootDirectory + "Resources/"; } }
+        private string jsonPath { get { return RootDirectory + "Resources/"; } }
 
         /// <summary>
         /// 表格存放位置
         /// </summary>
-        private static string tablePath { get { return RootDirectory + "Table/"; } }
+        private string tablePath { get { return RootDirectory + "Table/"; } }
 
         /// <summary>
         /// 模板存放位置
         /// </summary>
-        private static string modelPath { get { return RootDirectory + "Model/"; } }
+        private string modelPath { get { return RootDirectory + "Model/"; } }
 
         /// <summary>
         ///  版本号
@@ -88,12 +88,12 @@ namespace SY_FrameWork
         /// </summary>
         /// <param name="_scriptName"></param>
         /// <returns></returns>
-        static void GetRootPath(string _scriptName)
+        static void  GetRootPath(string _scriptName)
         {
-            string[] path = UnityEditor.AssetDatabase.FindAssets(_scriptName);
+            string[] path = AssetDatabase.FindAssets(_scriptName);
             if (path.Length > 1)
             {
-                Debug.LogError(_scriptName + "有同名文件,获取路径失败!");
+                Debug.LogError(_scriptName + "有同名文件!");
             }
 
             string root = Application.dataPath.Replace("Assets", "");
@@ -405,7 +405,6 @@ namespace SY_FrameWork
                 z = length >= 3 ? float.Parse(ss[2]) : 0;
             }
 
-            //{   "x" : 1.0,   "y" : 1.0,    "z" : 1.0}
             string json = "-{" + string.Format("-\"x-\" : {0}, -\"y-\" : {1}, -\"z-\" : {2}", x, y, z) + "}-";
             return json;
         }
