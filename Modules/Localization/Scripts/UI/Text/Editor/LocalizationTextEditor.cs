@@ -23,10 +23,21 @@ public class LocalizationTextEditor : UnityEditor.UI.TextEditor
         LocalizationText component = (LocalizationText) target;
         base.OnInspectorGUI();
         component.Key = int.Parse( EditorGUILayout.TextField("Key String", component.Key.ToString()));
-        component.CustomFont = (UIFont) EditorGUILayout.ObjectField("Custom Font", component.CustomFont, typeof(UIFont), true);
+        
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Is Open Localize", GUILayout.Width(140f));
         component.IsOpenLocalize = EditorGUILayout.Toggle(component.IsOpenLocalize);
         EditorGUILayout.EndHorizontal();
+        
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Is Open Font Localize", GUILayout.Width(140f));
+        component.IsFontOpenLocalize = EditorGUILayout.Toggle(component.IsFontOpenLocalize);
+        EditorGUILayout.EndHorizontal();
+        
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(target);
+            EditorUtility.ClearDirty(target);
+        }
     }
 }

@@ -1,0 +1,165 @@
+{
+  "datas": [
+    {
+      "Id": 1,
+      "Country": "English",
+      "ShortName": "en",
+      "Annotate": "英语",
+      "FontAssetName": "gamefont",
+      "Sort": 1,
+      "StrKey": "ENGLISH",
+      "IsUse": true
+    },
+    {
+      "Id": 2,
+      "Country": "简体中文",
+      "ShortName": "zh",
+      "Annotate": "中文",
+      "FontAssetName": "Arial",
+      "Sort": 2,
+      "StrKey": "CHINESE",
+      "IsUse": true
+    },
+    {
+      "Id": 3,
+      "Country": "繁体中文",
+      "ShortName": "tc",
+      "Annotate": "繁中",
+      "FontAssetName": "Arial",
+      "Sort": 3,
+      "StrKey": "TC",
+      "IsUse": true
+    },
+    {
+      "Id": 4,
+      "Country": "हिन्दी",
+      "ShortName": "hi",
+      "Annotate": "印地语",
+      "FontAssetName": "Arial",
+      "Sort": 4,
+      "StrKey": "HINDI",
+      "IsUse": true
+    },
+    {
+      "Id": 5,
+      "Country": "Português",
+      "ShortName": "pt",
+      "Annotate": "葡萄牙语",
+      "FontAssetName": "Arial",
+      "Sort": 5,
+      "StrKey": "Portuguese",
+      "IsUse": true
+    },
+    {
+      "Id": 6,
+      "Country": "لغة عربية",
+      "ShortName": "ar",
+      "Annotate": "阿拉伯语",
+      "FontAssetName": "HONORSansArabicUI-B",
+      "Sort": 6,
+      "StrKey": "Arabic",
+      "IsUse": true
+    },
+    {
+      "Id": 7,
+      "Country": "Français",
+      "ShortName": "fr",
+      "Annotate": "法语",
+      "FontAssetName": "Arial",
+      "Sort": 7,
+      "StrKey": "French",
+      "IsUse": true
+    },
+    {
+      "Id": 8,
+      "Country": "Bahasa",
+      "ShortName": "id",
+      "Annotate": "印尼语",
+      "FontAssetName": "Arial",
+      "Sort": 8,
+      "StrKey": "Indonesian",
+      "IsUse": true
+    },
+    {
+      "Id": 9,
+      "Country": "Türkçe",
+      "ShortName": "tr",
+      "Annotate": "土耳其语",
+      "FontAssetName": "Arial",
+      "Sort": 9,
+      "StrKey": "Turkic",
+      "IsUse": true
+    },
+    {
+      "Id": 10,
+      "Country": "Deutsch",
+      "ShortName": "de",
+      "Annotate": "德语",
+      "FontAssetName": "Arial",
+      "Sort": 10,
+      "StrKey": "German",
+      "IsUse": true
+    },
+    {
+      "Id": 11,
+      "Country": "Español",
+      "ShortName": "es",
+      "Annotate": "西语",
+      "FontAssetName": "Arial",
+      "Sort": 11,
+      "StrKey": "Spanish",
+      "IsUse": true
+    },
+    {
+      "Id": 12,
+      "Country": "日本語",
+      "ShortName": "ja",
+      "Annotate": "日本",
+      "FontAssetName": "Arial",
+      "Sort": 12,
+      "StrKey": "Japanese",
+      "IsUse": true
+    },
+    {
+      "Id": 13,
+      "Country": "한국어",
+      "ShortName": "ko",
+      "Annotate": "韩语",
+      "FontAssetName": "Arial",
+      "Sort": 13,
+      "StrKey": "Korean",
+      "IsUse": true
+    },
+    {
+      "Id": 14,
+      "Country": "Pуская",
+      "ShortName": "ru",
+      "Annotate": "俄语",
+      "FontAssetName": "Arial",
+      "Sort": 14,
+      "StrKey": "RUSSIAN",
+      "IsUse": true
+    },
+    {
+      "Id": 15,
+      "Country": "Italiano",
+      "ShortName": "it",
+      "Annotate": "意大利语",
+      "FontAssetName": "Arial",
+      "Sort": 15,
+      "StrKey": "ITALIAN",
+      "IsUse": true
+    },
+    {
+      "Id": 16,
+      "Country": "Tiếng Việt",
+      "ShortName": "vn",
+      "Annotate": "越南语",
+      "FontAssetName": "Arial",
+      "Sort": 16,
+      "StrKey": "VIETNAMESE",
+      "IsUse": true
+    }
+  ],
+  "version": "20230718"
+}
