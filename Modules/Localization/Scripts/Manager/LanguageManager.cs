@@ -1,6 +1,5 @@
 ﻿using System;
 using Solar.Runtime;
-using SY_FrameWork;
 using UnityEngine;
 
 /// <summary>
@@ -69,22 +68,20 @@ public class LanguageManager : MonoBehaviour
     string _defaultLanguage = LanguageConst.en;
 
     private static LanguageManager _instance = null;
+
     public static LanguageManager Instance
     {
-        get
-        {
-            return _instance;
-        }
+        get { return _instance; }
     }
 
     private void Awake()
     {
-        if( _instance == null )
+        if (_instance == null)
         {
             _instance = GetComponent<LanguageManager>();
         }
     }
-    
+
     /// <summary>
     ///	初始化语言类型
     /// </summary>
@@ -95,7 +92,7 @@ public class LanguageManager : MonoBehaviour
         {
             Font font;
             // 加载字体资源文件
-            if(country.FontAssetName.Equals("Arial"))
+            if (country.FontAssetName.Equals("Arial"))
             {
                 font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             }
@@ -103,10 +100,10 @@ public class LanguageManager : MonoBehaviour
             {
                 font = (Font)Root.Asset.LoadAssetSync("Font", "Assets/StaticRes/Fonts", country.FontAssetName);
             }
-            
-            country.font = font;
+
+            country.Font = font;
         }
-        
+
         string CurrentLanguage;
         if (PlayerPrefs.HasKey(SaveKey))
         {
@@ -124,7 +121,7 @@ public class LanguageManager : MonoBehaviour
 
         ResetCountry(CurrentLanguage);
     }
-    
+
     /// <summary>
     /// 获取系统语言
     /// </summary>
@@ -143,13 +140,13 @@ public class LanguageManager : MonoBehaviour
     /// </summary>
     public void SetLanguage(string lang)
     {
-        if (lang == CurrentCountry.shortName)
+        if (lang == CurrentCountry.ShortName)
         {
             return;
         }
 
         ResetCountry(lang);
-        PlayerPrefs.SetString(SaveKey, CurrentCountry.shortName);
+        PlayerPrefs.SetString(SaveKey, CurrentCountry.ShortName);
         OnLocalize?.Invoke();
     }
 
@@ -170,7 +167,7 @@ public class LanguageManager : MonoBehaviour
 
         CountryAndCode cac = countrys[index];
 
-        SetLanguage(cac.shortName);
+        SetLanguage(cac.ShortName);
     }
 
     /// <summary>
@@ -179,7 +176,7 @@ public class LanguageManager : MonoBehaviour
     /// <returns></returns>
     public string GetLanguage()
     {
-        return CurrentCountry.shortName;
+        return CurrentCountry.ShortName;
     }
 
     /// <summary>
@@ -190,7 +187,7 @@ public class LanguageManager : MonoBehaviour
     {
         for (int i = 0; i < countrys.Length; i++)
         {
-            if (CurrentCountry.shortName == countrys[i].shortName)
+            if (CurrentCountry.ShortName == countrys[i].ShortName)
             {
                 return i;
             }
@@ -213,7 +210,7 @@ public class LanguageManager : MonoBehaviour
             return string.Format(GetLangByKey(key, Instance.CurrentCountry), param);
         }
     }
-    
+
     /// <summary>
     /// 方便调用
     /// </summary>
@@ -237,11 +234,24 @@ public class LanguageManager : MonoBehaviour
         //刷新当前语言
         foreach (var country in countrys)
         {
-            if (currentLanguage == country.shortName)
+            if (currentLanguage == country.ShortName)
             {
                 CurrentCountry = country;
-                CurrentFont = CurrentCountry.font;
+                CurrentFont = CurrentCountry.Font;
                 break;
+            }
+        }
+
+        if (CurrentCountry == null)
+        {
+            foreach (var country in countrys)
+            {
+                if (_defaultLanguage == country.ShortName)
+                {
+                    CurrentCountry = country;
+                    CurrentFont = CurrentCountry.Font;
+                    break;
+                }
             }
         }
     }
@@ -252,7 +262,7 @@ public class LanguageManager : MonoBehaviour
     public static string GetLangByKey(int key, CountryAndCode curLange = null)
     {
         StrConfig config = StrConfig.Get(key);
-
+        
         CountryAndCode country = curLange == null ? Instance.CurrentCountry : curLange;
 
         if (config == null || country == null || string.IsNullOrEmpty(country.StrKey))
@@ -265,7 +275,7 @@ public class LanguageManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(str))
         {
-            //str = config.ENGLISH;
+            str = config.ENGLISH;
         }
 
         if (string.IsNullOrEmpty(str))
@@ -285,15 +295,15 @@ public class CountryAndCode
 {
     public string Country; //全称
 
-    public string shortName; //简称
+    public string ShortName; //简称
 
     public string FontAssetName; // 字体的名称
 
-    public int sort; //排序
+    public int Sort; //排序
 
-    public string annotate; //注释
+    public string Annotate; //注释
 
     public string StrKey; //再StrConfig中的key
 
-    [NonSerialized] public Font font; //对应字体
+    [NonSerialized] public Font Font; //对应字体
 }

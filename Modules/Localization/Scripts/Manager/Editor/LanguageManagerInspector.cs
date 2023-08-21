@@ -72,9 +72,9 @@ public class LanguageManagerInspector : Editor
 
             CountryAndCode code = new CountryAndCode();
             code.Country = setting.Country;
-            code.shortName = setting.ShortName;
-            code.annotate = setting.Annotate;
-            code.sort = setting.Sort;
+            code.ShortName = setting.ShortName;
+            code.Annotate = setting.Annotate;
+            code.Sort = setting.Sort;
             code.StrKey = setting.StrKey;
             code.FontAssetName = setting.FontAssetName;
             list.Add(code);
@@ -82,7 +82,7 @@ public class LanguageManagerInspector : Editor
 
         list.Sort((a, b) =>
         {
-            return a.sort - b.sort;
+            return a.Sort - b.Sort;
         });
         
         LanguageManager languageManager = ((LanguageManager)target);
