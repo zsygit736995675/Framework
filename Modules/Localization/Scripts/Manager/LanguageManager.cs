@@ -33,7 +33,7 @@ public delegate void GameVoidDelegate();
 public class LanguageManager : MonoBehaviour
 {
     /// <summary>
-    /// 回调
+    /// 多语言修改监听
     /// </summary>
     public GameVoidDelegate OnLocalize;
 
@@ -41,47 +41,56 @@ public class LanguageManager : MonoBehaviour
     /// 语言配置列表
     /// </summary>
     public CountryAndCode[] countrys;
-
-    /// <summary>
-    /// 需要的字体集合
-    /// </summary>
-    [NonSerialized] public Font[] fonts;
-
-    /// <summary>
-    /// 当前字体
-    /// </summary>
-    [NonSerialized] public Font CurrentFont;
-
-    /// <summary>
-    /// 当前语言
-    /// </summary>
-    [NonSerialized] public CountryAndCode CurrentCountry;
+    
 
     /// <summary>
     /// 本地存储的key
     /// </summary>
-    const string SaveKey = "LanguageSetting";
+    private const string SaveKey = "LanguageSetting";
 
     /// <summary>
     /// 默认语言
     /// </summary>
-    string _defaultLanguage = LanguageConst.en;
-
+    private string _defaultLanguage = LanguageConst.en;
+    
+    
+    /// <summary>
+    /// 单例
+    /// </summary>
     private static LanguageManager _instance = null;
+    public static LanguageManager Instance { get { return _instance; } }
 
-    public static LanguageManager Instance
+    /// <summary>
+    /// 当前语言
+    /// </summary>
+    private CountryAndCode _currentCountry;
+
+    private CountryAndCode CurrentCountry
     {
-        get { return _instance; }
+        get
+        {
+            if (_currentCountry == null)
+            {
+                ResetCountry(_defaultLanguage);
+            }
+
+            return _currentCountry;
+        }
     }
+    
+    /// <summary>
+    /// 当前字体
+    /// </summary>
+    public Font CurrentFont { get { return CurrentCountry.Font; } }
 
     private void Awake()
     {
-        if (_instance == null)
+        if( _instance == null )
         {
             _instance = GetComponent<LanguageManager>();
         }
     }
-
+    
     /// <summary>
     ///	初始化语言类型
     /// </summary>
@@ -92,7 +101,7 @@ public class LanguageManager : MonoBehaviour
         {
             Font font;
             // 加载字体资源文件
-            if (country.FontAssetName.Equals("Arial"))
+            if(country.FontAssetName.Equals("Arial"))
             {
                 font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             }
@@ -100,28 +109,28 @@ public class LanguageManager : MonoBehaviour
             {
                 font = (Font)Root.Asset.LoadAssetSync("Font", "Assets/StaticRes/Fonts", country.FontAssetName);
             }
-
+            
             country.Font = font;
         }
-
-        string CurrentLanguage;
+        
+        string currentLanguage;
         if (PlayerPrefs.HasKey(SaveKey))
         {
             //非首次登陆,获取本地存储
-            CurrentLanguage = PlayerPrefs.GetString(SaveKey);
+            currentLanguage = PlayerPrefs.GetString(SaveKey);
         }
         else
         {
             //首次登陆获取系统语言
-            CurrentLanguage = _defaultLanguage;
+            currentLanguage = _defaultLanguage;
 #if UNITY_ANDROID && !UNITY_EDITOR
-            CurrentLanguage = GetLocalLanguage();
+            currentLanguage = GetLocalLanguage();
 #endif
         }
 
-        ResetCountry(CurrentLanguage);
+        ResetCountry(currentLanguage);
     }
-
+    
     /// <summary>
     /// 获取系统语言
     /// </summary>
@@ -146,7 +155,6 @@ public class LanguageManager : MonoBehaviour
         }
 
         ResetCountry(lang);
-        PlayerPrefs.SetString(SaveKey, CurrentCountry.ShortName);
         OnLocalize?.Invoke();
     }
 
@@ -210,7 +218,7 @@ public class LanguageManager : MonoBehaviour
             return string.Format(GetLangByKey(key, Instance.CurrentCountry), param);
         }
     }
-
+    
     /// <summary>
     /// 方便调用
     /// </summary>
@@ -236,23 +244,15 @@ public class LanguageManager : MonoBehaviour
         {
             if (currentLanguage == country.ShortName)
             {
-                CurrentCountry = country;
-                CurrentFont = CurrentCountry.Font;
+                _currentCountry = country;
+                PlayerPrefs.SetString(SaveKey, _currentCountry.ShortName);
                 break;
             }
         }
-
-        if (CurrentCountry == null)
+        
+        if (currentLanguage != _defaultLanguage && _currentCountry == null) 
         {
-            foreach (var country in countrys)
-            {
-                if (_defaultLanguage == country.ShortName)
-                {
-                    CurrentCountry = country;
-                    CurrentFont = CurrentCountry.Font;
-                    break;
-                }
-            }
+            ResetCountry(_defaultLanguage);
         }
     }
 
@@ -262,7 +262,7 @@ public class LanguageManager : MonoBehaviour
     public static string GetLangByKey(int key, CountryAndCode curLange = null)
     {
         StrConfig config = StrConfig.Get(key);
-        
+
         CountryAndCode country = curLange == null ? Instance.CurrentCountry : curLange;
 
         if (config == null || country == null || string.IsNullOrEmpty(country.StrKey))
