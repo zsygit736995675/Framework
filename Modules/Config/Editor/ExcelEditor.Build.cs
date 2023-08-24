@@ -1,88 +1,19 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using Excel;
-using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEditor;
+using UnityEngine;
 
-namespace SY_FrameWork
+namespace SY_Editor
 {
-    /// <summary>
-    /// 表格编辑器
-    /// </summary>
-    public class ExcelEditor : EditorWindow
+    public partial class ExcelEditor : EditorWindow
     {
-        /// <summary>
-        /// 根目录（会刷新）
-        /// </summary>
-        private static  string _rootDirectory ;
-
-        private string RootDirectory
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_rootDirectory))
-                {
-                    GetRootPath(nameof(ExcelEditor));
-                }
-
-                return _rootDirectory;
-            }
-        }
-
-        /// <summary>
-        /// 脚本存放位置
-        /// </summary>
-        private string scriptsPath { get { return RootDirectory + "Scripts/"; } }
-
-        /// <summary>
-        /// json文件存放位置
-        /// </summary>
-        private string jsonPath { get { return RootDirectory + "Resources/"; } }
-
-        /// <summary>
-        /// 表格存放位置
-        /// </summary>
-        private string tablePath { get { return RootDirectory + "Table/"; } }
-
-        /// <summary>
-        /// 模板存放位置
-        /// </summary>
-        private string modelPath { get { return RootDirectory + "Model/"; } }
-
-        /// <summary>
-        ///  版本号
-        /// </summary>
-        private static int versionNum = 1;
-
-        /// <summary>
-        /// 时间
-        /// </summary>
-        private static string timeStr = "";
-
-        /// <summary>
-        /// 完整的版本号
-        /// </summary>
-        private static string version;
-
-        /// <summary>
-        /// 是否压缩
-        /// </summary>
-        private static bool isCompression = false;
+    
         
-
-        [MenuItem("SY_Tools/导表", false, 1)]
-        public static void ShowWindow()
-        {
-            GetRootPath(nameof(ExcelEditor));
-
-            EditorWindow window = GetWindowWithRect(typeof(ExcelEditor), new Rect(Screen.width / 3, Screen.height / 3, 600, 150), true, "配置文件生成窗口");
-            window.Show();
-        }
-
         /// <summary>
         /// 根据当前脚本路径获取根路径
         /// </summary>
@@ -101,11 +32,7 @@ namespace SY_FrameWork
             Debug.Log("Root Directory:" + _rootDirectory);
         }
 
-        private void OnGUI()
-        {
-            DrawVersionAndDate();
-            DrawButton();
-        }
+      
 
         /// <summary>
         /// 绘制按钮
@@ -159,17 +86,26 @@ namespace SY_FrameWork
         /// </summary>
         void DrawVersionAndDate()
         {
+            GUILayout.BeginVertical(EditorStyles.helpBox);
             GUILayout.Space(10);
+           
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("版本号:", GUILayout.Width(100));
             string dateStr = DateTime.Now.ToString("yyyyMMdd");
             version = (long.Parse(dateStr) * 1000 + versionNum).ToString();
             EditorGUILayout.LabelField(version, GUILayout.Width(150));
             if (GUILayout.Button("-", GUILayout.Width(20)))
+            {
                 versionNum--;
-            versionNum = int.Parse(EditorGUILayout.TextField(versionNum.ToString(), GUILayout.Width(100)));
+            }
+
+            versionNum = EditorGUILayout.IntField(versionNum, GUILayout.Width(100));
+
             if (GUILayout.Button("+", GUILayout.Width(20)))
+            {
                 versionNum++;
+            }
+
             versionNum = versionNum > 999 ? 999 : versionNum < 1 ? 1 : versionNum;
             GUILayout.EndHorizontal();
             GUILayout.Space(10);
@@ -180,6 +116,7 @@ namespace SY_FrameWork
             EditorGUILayout.LabelField(timeStr);
             GUILayout.EndHorizontal();
             GUILayout.Space(10);
+            GUILayout.EndVertical();
         }
 
         /// <summary>
@@ -452,17 +389,20 @@ namespace SY_FrameWork
             tempStr = tempStr.Replace("@json", "");
             File.WriteAllText(scriptsPath + fileName + ".cs", tempStr);
         }
-    }
-
-    public struct TableData
-    {
-        public string fieldName;
-        public string type;
-        public string value;
-
-        public override string ToString()
+        
+        public struct TableData
         {
-            return string.Format("fieldName:{0} type:{1} value:{2}", fieldName, type, value);
+            public string fieldName;
+            public string type;
+            public string value;
+
+            public override string ToString()
+            {
+                return string.Format("fieldName:{0} type:{1} value:{2}", fieldName, type, value);
+            }
         }
+        
+        
     }
 }
+
